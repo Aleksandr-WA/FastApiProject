@@ -3,11 +3,18 @@ from app.models.models import User
 
 app = FastAPI()
 
-user = User(name="John Doe", id=1)
 
 @app.get("/")
-def read_root():
-    return user
+async def get_main_page():
+    return 'welcome to my main page'
 
+
+@app.post("/user")
+async def create_user(user: User):
+    return {
+        "name": user.name,
+        "age": user.age,
+        "is_adult": user.age >= 18
+    }
 
 # uvicorn app.main:app --reload
