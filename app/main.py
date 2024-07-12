@@ -1,14 +1,13 @@
 from fastapi import FastAPI
+from app.models.models import User
 
 app = FastAPI()
 
+user = User(name="John Doe", id=1)
+
 @app.get("/")
 def read_root():
-    return {"message": "Hello, World!"}
+    return user
 
-# новый роут
-@app.get("/custom")
-def read_custom_message():
-    return {"message": "This is a custom message!"}
 
-# uvicorn main:app --reload
+# uvicorn app.main:app --reload
