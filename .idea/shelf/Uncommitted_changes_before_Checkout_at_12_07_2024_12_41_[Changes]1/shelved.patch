@@ -1,0 +1,10 @@
+Index: requirements.txt
+===================================================================
+diff --git a/requirements.txt b/requirements.txt
+deleted file mode 100644
+--- a/requirements.txt	
++++ /dev/null	
+@@ -1,2 +0,0 @@
+-pydantic~=2.8.2
+-fastapi~=0.111.0
+\ No newline at end of file

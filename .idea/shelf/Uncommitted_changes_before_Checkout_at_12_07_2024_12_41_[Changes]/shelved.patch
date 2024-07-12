@@ -1,0 +1,143 @@
+Index: app/main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from fastapi import FastAPI\r\nfrom app.models.models import User\r\n\r\napp = FastAPI()\r\n\r\nuser = User(name=\"John Doe\", id=1)\r\n\r\n@app.get(\"/\")\r\ndef read_root():\r\n    return user\r\n\r\n\r\n# uvicorn app.main:app --reload
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/main.py b/app/main.py
+--- a/app/main.py	
++++ b/app/main.py	
+@@ -1,13 +1,21 @@
+ from fastapi import FastAPI
+ from app.models.models import User
++from pydantic import BaseModel
+ 
+ app = FastAPI()
+ 
+-user = User(name="John Doe", id=1)
+ 
+ @app.get("/")
+-def read_root():
+-    return user
++async def get_main_page():
++    return 'Welcome to my main page'
+ 
+ 
+-# uvicorn app.main:app --reload
+\ No newline at end of file
++@app.post("/user")
++async def create_user(user: User):
++    return {
++        "name": user.name,
++        "age": user.age,
++        "is_adult": user.age >= 18
++    }
++
++# uvicorn app.main:app --reload
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c5ce2989-f45a-47ea-a5a9-d4884046b526\" name=\"Changes\" comment=\"'add folders and files for start app'\">\r\n      <change afterPath=\"$PROJECT_DIR$/app/models/models.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/app/main.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app/main.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/requirements.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/requirements.txt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2j6jC3ibj88DdEIVD577SnVgqA4\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"DefaultHtmlFileTemplate\": \"HTML File\",\r\n    \"Python.main.executor\": \"Run\",\r\n    \"Python.start server.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"develop\",\r\n    \"run.code.analysis.last.selected.profile\": \"pProject Default\",\r\n    \"settings.editor.selected.configurable\": \"com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\PythonProjects\\FastApiProject\\app\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"c5ce2989-f45a-47ea-a5a9-d4884046b526\" name=\"Changes\" comment=\"\" />\r\n      <created>1720714290025</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1720714290025</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"'start fastapi project'\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1720714420227</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720714420227</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"'start fastapi project'\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1720714542583</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720714542583</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"'install fastapi and uvicorn'\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1720714930263</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720714930263</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"'add main.py'\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1720715266782</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720715266782</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"'add index.html and some func'\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1720716866313</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720716866313</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"'add folders and files for start app'\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1720771941511</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1720771941511</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"master\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"'start fastapi project'\" />\r\n    <MESSAGE value=\"'install fastapi and uvicorn'\" />\r\n    <MESSAGE value=\"'add main.py'\" />\r\n    <MESSAGE value=\"'add index.html and some func'\" />\r\n    <MESSAGE value=\"'add folders and files for start app'\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"'add folders and files for start app'\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,11 +4,14 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="c5ce2989-f45a-47ea-a5a9-d4884046b526" name="Changes" comment="'add folders and files for start app'">
+-      <change afterPath="$PROJECT_DIR$/app/models/models.py" afterDir="false" />
++    <list default="true" id="c5ce2989-f45a-47ea-a5a9-d4884046b526" name="Changes" comment="'add new func'">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/models/__init__.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/models.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/routes/__init__.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -43,12 +46,13 @@
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+     "DefaultHtmlFileTemplate": "HTML File",
+-    "Python.main.executor": "Run",
++    "Python.main.executor": "Debug",
+     "Python.start server.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "git-widget-placeholder": "develop",
++    "ignore.virus.scanning.warn.message": "true",
+     "run.code.analysis.last.selected.profile": "pProject Default",
+-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
++    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Code With Me"
+   }
+ }]]></component>
+   <component name="RecentsManager">
+@@ -120,12 +124,30 @@
+       <option name="project" value="LOCAL" />
+       <updated>1720771941511</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="'add new func'">
++      <option name="closed" value="true" />
++      <created>1720772469697</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1720772469697</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="OPEN_GENERIC_TABS">
++      <map>
++        <entry key="1b56a7a7-83ae-47b1-aa4d-855a219f68ba" value="TOOL_WINDOW" />
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
++        <entry key="1b56a7a7-83ae-47b1-aa4d-855a219f68ba">
++          <value>
++            <State />
++          </value>
++        </entry>
+         <entry key="MAIN">
+           <value>
+             <State>
+@@ -152,6 +174,7 @@
+     <MESSAGE value="'add main.py'" />
+     <MESSAGE value="'add index.html and some func'" />
+     <MESSAGE value="'add folders and files for start app'" />
+-    <option name="LAST_COMMIT_MESSAGE" value="'add folders and files for start app'" />
++    <MESSAGE value="'add new func'" />
++    <option name="LAST_COMMIT_MESSAGE" value="'add new func'" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/models/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from pydantic import BaseModel\r\n\r\n\r\nclass User(BaseModel):\r\n    name: str\r\n    id: int\r\n
+===================================================================
+diff --git a/app/models/models.py b/app/models/models.py
+--- a/app/models/models.py	
++++ b/app/models/models.py	
+@@ -3,4 +3,4 @@
+ 
+ class User(BaseModel):
+     name: str
+-    id: int
++    age: int
+diff --git a/app/routes/__init__.py b/app/routes/__init__.py
+deleted file mode 100644
+diff --git a/app/__init__.py b/app/__init__.py
+deleted file mode 100644
+diff --git a/app/models/__init__.py b/app/models/__init__.py
+deleted file mode 100644
