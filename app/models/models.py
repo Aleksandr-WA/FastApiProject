@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 
 class User(BaseModel):
-    name: str
-    age: int
+    username: str
+    password: str
 
 
 class Feedback(BaseModel):
@@ -16,3 +16,8 @@ class UserCreate(BaseModel):
     email: str
     age: int
     is_subscribed: bool
+
+
+class Users(BaseModel):
+    username: str
+    password: str

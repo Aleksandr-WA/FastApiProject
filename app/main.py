@@ -1,4 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from typing import Optional
+from fastapi import Request, Response
+import secrets
 from app.models.models import User, Feedback, UserCreate
 
 sample_product_1 = {
@@ -47,6 +53,11 @@ fake_users = {
 
 fake_lst_db = []
 
+fake_users_db = {
+    "user1": {"username": "user1", "password": "password1"},
+    "user2": {"username": "user2", "password": "password2"},
+}
+
 
 @app.get("/")
 async def get_main_page():
@@ -93,5 +104,36 @@ async def search_product(keyword: str, category: str | None = None, limit: int =
 @app.get("/product/{product_id}")
 async def get_product(product_id: int):
     return list(filter(lambda x: x['product_id'] == product_id, sample_products))
+
+
+# Маршрут для входа в систему
+@app.post("/login")
+async def login(user: User, response: Response):
+    if user.username in fake_users_db and fake_users_db[user.username]["password"] == user.password:
+        session_token = secrets.token_hex(16)
+        response.set_cookie(key="session_token", value=session_token, httponly=True)
+        return {"message": "Login successful"}
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+
+
+# Функция для проверки аутентификации
+def get_current_user(request: Request):
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
+    # Здесь вы можете добавить дополнительную проверку токена
+    return {"username": "user1"}  # Возвращаем фиктивного пользователя для примера
+
+
+# Защищенный маршрут
+@app.get("/user")
+async def read_user(current_user: dict = Depends(get_current_user)):
+    return current_user
+
+
+# Запуск приложения
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
 # uvicorn app.main:app
